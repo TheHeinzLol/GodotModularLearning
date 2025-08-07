@@ -1,0 +1,49 @@
+[gd_scene load_steps=8 format=3 uid="uid://dsteqc5juwmeu"]
+
+[ext_resource type="Script" uid="uid://dmg45q75i57n" path="res://simple_movement/scripts/player.gd" id="1_fkflj"]
+[ext_resource type="Script" uid="uid://bs1m5dl8vmtg2" path="res://simple_movement/scripts/state_machine.gd" id="2_571xa"]
+[ext_resource type="Script" uid="uid://fffwekuq5d8h" path="res://simple_movement/scripts/state_idle.gd" id="3_keg8h"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_s3ojf"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fkflj"]
+height = 1.0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_3hobo"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_fkflj"]
+height = 1.0
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_fkflj")
+
+[node name="SpringArm3D" type="SpringArm3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1.50455)
+spring_length = 0.0
+
+[node name="Camera3D" type="Camera3D" parent="SpringArm3D"]
+
+[node name="CollisionShapeStanding" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_s3ojf")
+
+[node name="CollisionShapeCrouching" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.50511, 0)
+shape = SubResource("CapsuleShape3D_fkflj")
+disabled = true
+
+[node name="MeshStanding" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_3hobo")
+
+[node name="MeshCrouching" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.504986, 0)
+mesh = SubResource("CapsuleMesh_fkflj")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+target_position = Vector3(0, 2, 0)
+
+[node name="FMS" type="Node" parent="."]
+script = ExtResource("2_571xa")
+
+[node name="StateIdle" type="Node" parent="FMS"]
+script = ExtResource("3_keg8h")
