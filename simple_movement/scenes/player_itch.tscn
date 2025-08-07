@@ -1,4 +1,6 @@
-[gd_scene load_steps=54 format=4 uid="uid://bmic5pc6bbsg7"]
+[gd_scene load_steps=55 format=4 uid="uid://bmic5pc6bbsg7"]
+
+[ext_resource type="Script" uid="uid://dmajr4i1uakon" path="res://simple_movement/scripts/movement.gd" id="1_xfk4e"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gre2o"]
 resource_name = "M_Main"
@@ -17939,3 +17941,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.357391, 1.6, 0.8)
 spring_length = 0.0
 
 [node name="Camera3D" type="Camera3D" parent="SpringArm3D"]
+
+[node name="Components" type="Node" parent="."]
+
+[node name="Movement" type="Node" parent="Components"]
+script = ExtResource("1_xfk4e")
