@@ -1,6 +1,8 @@
-[gd_scene load_steps=55 format=4 uid="uid://bmic5pc6bbsg7"]
+[gd_scene load_steps=58 format=4 uid="uid://bmic5pc6bbsg7"]
 
-[ext_resource type="Script" uid="uid://dmajr4i1uakon" path="res://simple_movement/scripts/movement.gd" id="1_xfk4e"]
+[ext_resource type="Script" uid="uid://dmajr4i1uakon" path="res://simple_movement/scripts/component_movement.gd" id="1_xfk4e"]
+[ext_resource type="Script" uid="uid://gv7eq3myps6c" path="res://simple_movement/scripts/component_mouse_view.gd" id="3_ha258"]
+[ext_resource type="Script" uid="uid://b0xwoligmmy2e" path="res://simple_movement/scripts/component_crouch.gd" id="4_sad5m"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gre2o"]
 resource_name = "M_Main"
@@ -17530,12 +17532,16 @@ _data = {
 }
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_fiats"]
-height = 1.771
-radius = 0.420898
+height = 1.82
+radius = 0.042
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_xfk4e"]
-height = 1.10059
+height = 1.1
 radius = 0.539062
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ha258"]
+height = 0.9
+radius = 0.43
 
 [node name="CharacterBody3D" type="CharacterBody3D"]
 
@@ -17925,16 +17931,13 @@ libraries = {
 }
 
 [node name="CollisionShapeStanding" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.885498, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.926799, 0)
 shape = SubResource("CylinderShape3D_fiats")
 
 [node name="CollisionShapeCrouching" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.06427, 0.550293, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.06427, 0.550293, -0.0112982)
 shape = SubResource("CylinderShape3D_xfk4e")
 disabled = true
-
-[node name="RayCast3D" type="RayCast3D" parent="."]
-target_position = Vector3(0, 1.8, 0)
 
 [node name="SpringArm3D" type="SpringArm3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.357391, 1.6, 0.8)
@@ -17946,3 +17949,14 @@ spring_length = 0.0
 
 [node name="Movement" type="Node" parent="Components"]
 script = ExtResource("1_xfk4e")
+
+[node name="MouseView" type="Node" parent="Components"]
+script = ExtResource("3_ha258")
+
+[node name="Crouch" type="Node" parent="Components"]
+script = ExtResource("4_sad5m")
+
+[node name="ShapeCast3D" type="ShapeCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+shape = SubResource("CylinderShape3D_ha258")
+target_position = Vector3(0, 0.8, 0)

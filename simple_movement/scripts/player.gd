@@ -93,4 +93,5 @@ func _physics_process(delta: float) -> void:
 		velocity.z = 0
 		velocity.x = 0
 	#print("x:%s "  %velocity.x, "z:%s " %velocity.z) # to see velocity
+	print(velocity)
 	move_and_slide()

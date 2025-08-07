@@ -1,7 +1,16 @@
 extends CharacterBody3D
 
+#Functional parts
+@onready var collision_shape_standing = $CollisionShapeStanding
+@onready var collision_shape_crouching = $CollisionShapeCrouching
+@onready var raycast = $ShapeCast3D
+@onready var head = $SpringArm3D
+
 #Components
 @onready var movement := $Components/Movement
+@onready var crouch := $Components/Crouch
+@onready var look_around := $Components/MouseView
+
 #Speed vars
 var speed_walking: float = 5.0
 var speed_current: float
@@ -13,12 +22,39 @@ const gravity: int = 25
 
 #Input vars
 var mouse_sens: float = 0.4
-
+var input_dir: Vector2
 #Misc
 var crouching_depth: float = 0.8
 
 func _physics_process(delta: float) -> void:
+	#Moving
 	speed_current = speed_walking
-	velocity = movement.get_velocity(speed_current, self, delta, speed_lerp)
-	print(velocity)
+	input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
+	velocity = movement.get_velocity(self, input_dir, speed_current, delta, speed_lerp)
+	
+	#Jumping
+	# should I move jumping to a component? Isn't it too simple for separate func?
+	if not is_on_floor():
+		velocity.y -= gravity * delta
+	if Input.is_action_just_pressed("jump") and is_on_floor():
+		velocity.y += jump_velocity
+	
+	#Crouching
+	if Input.is_action_pressed("crouch"):
+		crouch.crouch(self, crouching_depth, delta)
+	elif !raycast.is_colliding(): 
+		collision_shape_standing.disabled = false
+		collision_shape_crouching.disabled = true
+		head.position.y = 1.6
+	#Movement itself
 	move_and_slide()
+	print(collision_shape_standing.disabled)
+
+func _ready() -> void:
+	#Locks mouse in window and hides it
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
+func _input(event: InputEvent) -> void:
+	#looking around with mouse
+	look_around.mouse_look_around(self, event, mouse_sens)
+	
