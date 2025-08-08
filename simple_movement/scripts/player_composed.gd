@@ -5,6 +5,7 @@ extends CharacterBody3D
 @onready var collision_shape_crouching = $CollisionShapeCrouching
 @onready var raycast = $ShapeCast3D
 @onready var head = $SpringArm3D
+@onready var animations = $AnimationPlayer
 
 #Components
 @onready var movement := $Components/Movement
@@ -25,6 +26,8 @@ var mouse_sens: float = 0.4
 var input_dir: Vector2
 #Misc
 var crouching_depth: float = 0.8
+var standing_height: float = 1.6
+var is_crouching: bool
 
 func _physics_process(delta: float) -> void:
 	#Moving
@@ -40,12 +43,13 @@ func _physics_process(delta: float) -> void:
 		velocity.y += jump_velocity
 	
 	#Crouching
+	# same 
 	if Input.is_action_pressed("crouch"):
 		crouch.crouch(self, crouching_depth, delta)
-	elif !raycast.is_colliding(): 
-		collision_shape_standing.disabled = false
-		collision_shape_crouching.disabled = true
-		head.position.y = 1.6
+		is_crouching = true
+	else:
+		crouch.get_node("StandUpCheck").is_stand_up_possible(self, standing_height)
+		is_crouching = false
 	#Movement itself
 	move_and_slide()
 	print(collision_shape_standing.disabled)
