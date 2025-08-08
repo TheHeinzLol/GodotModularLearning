@@ -5,7 +5,8 @@ extends CharacterBody3D
 @onready var collision_shape_crouching = $CollisionShapeCrouching
 @onready var raycast = $ShapeCast3D
 @onready var head = $SpringArm3D
-@onready var animations = $AnimationPlayer
+@onready var animations = $Rig/AnimationPlayer
+@onready var visuals = $Rig
 
 #Components
 @onready var movement := $Components/Movement
@@ -28,6 +29,14 @@ var input_dir: Vector2
 var crouching_depth: float = 0.8
 var standing_height: float = 1.6
 var is_crouching: bool
+
+func _ready() -> void:
+	#Locks mouse in window and hides it
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
+func _input(event: InputEvent) -> void:
+	#looking around with mouse
+	look_around.mouse_look_around(self, event, mouse_sens)
 
 func _physics_process(delta: float) -> void:
 	#Moving
@@ -52,13 +61,7 @@ func _physics_process(delta: float) -> void:
 		is_crouching = false
 	#Movement itself
 	move_and_slide()
-	print(collision_shape_standing.disabled)
 
-func _ready() -> void:
-	#Locks mouse in window and hides it
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-
-func _input(event: InputEvent) -> void:
-	#looking around with mouse
-	look_around.mouse_look_around(self, event, mouse_sens)
-	
+func _process(delta: float) -> void:
+	visuals.look_at((global_position+Vector3(-velocity.x, 0, -velocity.z)))
+	print(velocity)
