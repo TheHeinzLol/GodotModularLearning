@@ -1,9 +1,10 @@
-[gd_scene load_steps=59 format=4 uid="uid://bmic5pc6bbsg7"]
+[gd_scene load_steps=60 format=4 uid="uid://bmic5pc6bbsg7"]
 
 [ext_resource type="Script" uid="uid://dmajr4i1uakon" path="res://simple_movement/scripts/component_movement.gd" id="1_xfk4e"]
 [ext_resource type="Script" uid="uid://gv7eq3myps6c" path="res://simple_movement/scripts/component_mouse_view.gd" id="3_ha258"]
 [ext_resource type="Script" uid="uid://b1x3htjatoohe" path="res://simple_movement/scripts/component_stand_up_check.gd" id="4_mgwxq"]
 [ext_resource type="Script" uid="uid://b0xwoligmmy2e" path="res://simple_movement/scripts/component_crouch.gd" id="4_sad5m"]
+[ext_resource type="Script" uid="uid://bxwbo6v3bkfij" path="res://simple_movement/scripts/component_animation_manager.gd" id="5_mgwxq"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gre2o"]
 resource_name = "M_Main"
@@ -17943,8 +17944,8 @@ shape = SubResource("CylinderShape3D_xfk4e")
 disabled = true
 
 [node name="SpringArm3D" type="SpringArm3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.357391, 1.6, 0.8)
-spring_length = 0.0
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 1)
+spring_length = -0.5
 
 [node name="Camera3D" type="Camera3D" parent="SpringArm3D"]
 
@@ -17966,3 +17967,6 @@ script = ExtResource("4_sad5m")
 
 [node name="StandUpCheck" type="Node" parent="Components/Crouch"]
 script = ExtResource("4_mgwxq")
+
+[node name="AnimationManager" type="Node" parent="Components"]
+script = ExtResource("5_mgwxq")

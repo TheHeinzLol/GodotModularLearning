@@ -12,7 +12,7 @@ extends CharacterBody3D
 @onready var movement := $Components/Movement
 @onready var crouch := $Components/Crouch
 @onready var look_around := $Components/MouseView
-
+@onready var animation_manager := $Components/AnimationManager
 #Speed vars
 var speed_walking: float = 5.0
 var speed_current: float
@@ -58,10 +58,10 @@ func _physics_process(delta: float) -> void:
 		is_crouching = true
 	else:
 		crouch.get_node("StandUpCheck").is_stand_up_possible(self, standing_height)
-		is_crouching = false
 	#Movement itself
 	move_and_slide()
 
 func _process(delta: float) -> void:
-	visuals.look_at((global_position+Vector3(-velocity.x, 0, -velocity.z)))
-	print(velocity)
+	if velocity:
+		visuals.look_at((global_position+Vector3(-velocity.x, 0, -velocity.z)))
+	animation_manager.run_animation(self)
