@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://b5j17hnbri56"]
+[gd_scene load_steps=14 format=3 uid="uid://b5j17hnbri56"]
 
 [ext_resource type="Texture2D" uid="uid://bn8wfhbs1omgo" path="res://third_person_controller_assets-main/textures/grids/Dark/texture_08.png" id="1_jglk4"]
 [ext_resource type="Texture2D" uid="uid://bptgjmdx8jvbr" path="res://third_person_controller_assets-main/textures/sky/sky.hdr" id="1_v4c4k"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dunn0prknqhot" path="res://third_person_controller_assets-main/textures/textures/wooden_crate.jpg" id="3_v4c4k"]
 [ext_resource type="PackedScene" uid="uid://bmic5pc6bbsg7" path="res://simple_movement/scenes/player_itch.tscn" id="5_v4c4k"]
 [ext_resource type="Script" uid="uid://c63aas01rvuj" path="res://simple_movement/scripts/player_composed.gd" id="6_0eiur"]
+[ext_resource type="Script" uid="uid://bueogproq1taa" path="res://simple_movement/scripts/debug_window.gd" id="7_8mrcr"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_0eiur"]
 panorama = ExtResource("1_v4c4k")
@@ -107,7 +108,36 @@ collision_mask = 2
 size = Vector3(0.1, 5, 100)
 material = SubResource("StandardMaterial3D_embjd")
 
-[node name="CharacterBody3D" parent="." instance=ExtResource("5_v4c4k")]
+[node name="Player" parent="." instance=ExtResource("5_v4c4k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00377369, 0.250722, -0.00340974)
 collision_layer = 2
 script = ExtResource("6_0eiur")
+
+[node name="DebugWindow" type="CanvasLayer" parent="."]
+script = ExtResource("7_8mrcr")
+
+[node name="MarginContainer" type="MarginContainer" parent="DebugWindow"]
+offset_right = 315.0
+offset_bottom = 120.0
+
+[node name="ColorRect" type="ColorRect" parent="DebugWindow/MarginContainer"]
+custom_minimum_size = Vector2(300, 120)
+layout_mode = 2
+color = Color(0, 0, 0, 0.741176)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DebugWindow/MarginContainer/ColorRect"]
+layout_mode = 0
+offset_right = 199.0
+offset_bottom = 200.0
+
+[node name="FPS" type="Label" parent="DebugWindow/MarginContainer/ColorRect/VBoxContainer"]
+layout_mode = 2
+
+[node name="Position" type="Label" parent="DebugWindow/MarginContainer/ColorRect/VBoxContainer"]
+layout_mode = 2
+
+[node name="Velocity" type="Label" parent="DebugWindow/MarginContainer/ColorRect/VBoxContainer"]
+layout_mode = 2
+
+[node name="Animation" type="Label" parent="DebugWindow/MarginContainer/ColorRect/VBoxContainer"]
+layout_mode = 2
