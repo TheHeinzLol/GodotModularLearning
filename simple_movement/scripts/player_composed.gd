@@ -14,7 +14,7 @@ extends CharacterBody3D
 @onready var look_around := $Components/MouseView
 @onready var animation_manager := $Components/AnimationManager
 #Speed vars
-var speed_walking: float = 5.0
+var speed_walking: float = 10.0
 var speed_current: float
 var speed_sprinting: float = 10.0
 var speed_crouching: float = 3.8
@@ -29,6 +29,7 @@ var input_dir: Vector2
 var crouching_depth: float = 0.8
 var standing_height: float = 1.6
 var is_crouching: bool
+var jumps_allowed: int = 2
 
 func _ready() -> void:
 	#Locks mouse in window and hides it
@@ -46,10 +47,13 @@ func _physics_process(delta: float) -> void:
 	
 	#Jumping
 	# should I move jumping to a component? Isn't it too simple for separate func?
-	if not is_on_floor():
+	if is_on_floor():
+		jumps_allowed = 2
+	else: 
 		velocity.y -= gravity * delta
-	if Input.is_action_just_pressed("jump") and is_on_floor():
+	if Input.is_action_just_pressed("jump") and jumps_allowed>0:
 		velocity.y += jump_velocity
+		jumps_allowed -= 1
 	
 	#Crouching
 	# same 

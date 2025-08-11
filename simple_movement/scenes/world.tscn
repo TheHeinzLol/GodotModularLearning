@@ -109,7 +109,7 @@ size = Vector3(0.1, 5, 100)
 material = SubResource("StandardMaterial3D_embjd")
 
 [node name="Player" parent="." instance=ExtResource("5_v4c4k")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00377369, 0.250722, -0.00340974)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00377369, 0.063141, -0.00340974)
 collision_layer = 2
 script = ExtResource("6_0eiur")
 
