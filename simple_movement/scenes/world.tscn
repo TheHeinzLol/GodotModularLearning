@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bptgjmdx8jvbr" path="res://third_person_controller_assets-main/textures/sky/sky.hdr" id="1_v4c4k"]
 [ext_resource type="Texture2D" uid="uid://d38xa30ruie15" path="res://third_person_controller_assets-main/textures/grids/Dark/texture_12.png" id="2_nujw8"]
 [ext_resource type="Texture2D" uid="uid://dunn0prknqhot" path="res://third_person_controller_assets-main/textures/textures/wooden_crate.jpg" id="3_v4c4k"]
-[ext_resource type="PackedScene" uid="uid://bmic5pc6bbsg7" path="res://simple_movement/scenes/player_itch.tscn" id="5_v4c4k"]
+[ext_resource type="PackedScene" uid="uid://bmic5pc6bbsg7" path="res://simple_movement/scenes/player.tscn" id="5_v4c4k"]
 [ext_resource type="Script" uid="uid://c63aas01rvuj" path="res://simple_movement/scripts/player_composed.gd" id="6_0eiur"]
 [ext_resource type="Script" uid="uid://bueogproq1taa" path="res://simple_movement/scripts/debug_window.gd" id="7_8mrcr"]
 
@@ -108,6 +108,14 @@ collision_mask = 2
 size = Vector3(0.1, 5, 100)
 material = SubResource("StandardMaterial3D_embjd")
 
+[node name="Wall4" type="CSGBox3D" parent="Whitebox/Walls"]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 14.0352, 2.5, -6.2124)
+layers = 2
+use_collision = true
+collision_mask = 2
+size = Vector3(0.1, 5, 30.4152)
+material = SubResource("StandardMaterial3D_embjd")
+
 [node name="Player" parent="." instance=ExtResource("5_v4c4k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00377369, 0.063141, -0.00340974)
 collision_layer = 2
@@ -140,4 +148,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="Animation" type="Label" parent="DebugWindow/MarginContainer/ColorRect/VBoxContainer"]
+layout_mode = 2
+
+[node name="MeshRotation" type="Label" parent="DebugWindow/MarginContainer/ColorRect/VBoxContainer"]
 layout_mode = 2

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="WeaponResource" load_steps=4 format=3 uid="uid://c5uwnrhabdr3q"]
+
+[ext_resource type="Script" uid="uid://djs28d1oi86my" path="res://simple_movement/weapon_management/weapon_resource.gd" id="1_2sf7m"]
+[ext_resource type="PackedScene" uid="uid://bk2ucdx3k7otc" path="res://simple_movement/models/weapon/crowbar/crowbar_mesh.tscn" id="1_5gnyi"]
+[ext_resource type="AudioStream" uid="uid://cxtt0yxdfurty" path="res://simple_movement/models/weapon/crowbar/whoosh-6316.mp3" id="1_mg1nd"]
+
+[resource]
+script = ExtResource("1_2sf7m")
+name = &"crowbar"
+position = Vector3(0.1, -0.15, -0.25)
+rotation = Vector3(-90, 200, 0)
+mesh = ExtResource("1_5gnyi")
+attack_sound = ExtResource("1_mg1nd")
+damage = 1.0
+range = 2.0
+fire_rate = 3
+metadata/_custom_type_script = "uid://djs28d1oi86my"

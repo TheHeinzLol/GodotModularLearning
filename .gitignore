@@ -1,3 +1,7 @@
 # Godot 4+ specific ignores
 .godot/
 /android/
+third_person_controller_assets-main
+icon.svg
+icon.svg.import
+project.godot

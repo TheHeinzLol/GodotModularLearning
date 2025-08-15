@@ -12,7 +12,9 @@ extends CharacterBody3D
 @onready var movement := $Components/Movement
 @onready var crouch := $Components/Crouch
 @onready var look_around := $Components/MouseView
+@onready var attack := $Components/Attack
 @onready var animation_manager := $Components/AnimationManager
+@onready var sound_player := $SoundSource
 #Speed vars
 var speed_walking: float = 10.0
 var speed_current: float
@@ -39,11 +41,17 @@ func _input(event: InputEvent) -> void:
 	#looking around with mouse
 	look_around.mouse_look_around(self, event, mouse_sens)
 
+
 func _physics_process(delta: float) -> void:
 	#Moving
 	speed_current = speed_walking
 	input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
 	velocity = movement.get_velocity(self, input_dir, speed_current, delta, speed_lerp)
+	#attack
+	if Input.is_action_just_pressed("attack"):
+		attack.weapon_animation_attack(self)
+		sound_player.stream = $WeaponManager.current_weapon.attack_sound
+		sound_player.play()
 	
 	#Jumping
 	# should I move jumping to a component? Isn't it too simple for separate func?
@@ -64,6 +72,7 @@ func _physics_process(delta: float) -> void:
 		crouch.get_node("StandUpCheck").is_stand_up_possible(self, standing_height)
 	#Movement itself
 	move_and_slide()
+	
 
 func _process(delta: float) -> void:
 	if velocity:
